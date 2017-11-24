@@ -61,6 +61,7 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
           new Expanded(
             child: new ListView(
               shrinkWrap: true,
+              reverse: true,
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               children: _expenses.map((Expense expense) {
                 return new ExpenseListItem(
@@ -69,24 +70,32 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
               }).toList(),
             ),
           ),
-          new Column(
-            children: <Widget>[
-              new TextField(
-                controller: _amountController,
-                keyboardType: TextInputType.number,
-                decoration: new InputDecoration(hintText: 'Amount'),
-              ),
-              new TextField(
-                controller: _categoryController,
-                keyboardType: TextInputType.text,
-                decoration: new InputDecoration(hintText: 'Category'),
-              ),
-              new FlatButton(
-                child: new Icon(Icons.add),
-                onPressed: insert,
-              )
-            ],
-          )
+          new Divider(
+            height: 1.0,
+          ),
+          new Container(
+            decoration: new BoxDecoration(
+              color: Theme.of(context).cardColor,
+            ),
+            child: new Column(
+              children: <Widget>[
+                new TextField(
+                  controller: _amountController,
+                  keyboardType: TextInputType.number,
+                  decoration: new InputDecoration(hintText: 'Amount'),
+                ),
+                new TextField(
+                  controller: _categoryController,
+                  keyboardType: TextInputType.text,
+                  decoration: new InputDecoration(hintText: 'Category'),
+                ),
+                new FlatButton(
+                  child: new Icon(Icons.add),
+                  onPressed: insert,
+                )
+              ],
+            ),
+          ),
         ],
       ),
     );
