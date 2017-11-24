@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(new MyApp());
@@ -28,10 +29,10 @@ class ExpenseOverview extends StatefulWidget {
 
 class _ExpenseOverviewState extends State<ExpenseOverview> {
   List<Expense> _expenses = [
-    new Expense(description: 'First', amount: 10),
-    new Expense(description: 'Second', amount: 20),
-    new Expense(description: 'Third', amount: 30),
-    new Expense(description: 'Fourth', amount: 120),
+    new Expense(description: 'First', amount: 10.1),
+    new Expense(description: 'Second', amount: 20.12),
+    new Expense(description: 'Third', amount: 30.123),
+    new Expense(description: 'Fourth', amount: 120.129),
   ];
 
   @override
@@ -59,11 +60,8 @@ class ExpenseListItem extends StatelessWidget {
 
   final Expense expense;
 
-  String printCurrency(int value) {
-    var whole = (value / 100).round();
-    var cents = value % 100;
-    return '$whole,$cents €';
-  }
+  final NumberFormat _currency =
+      new NumberFormat.currency(locale: "de_DE", symbol: '€');
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +69,7 @@ class ExpenseListItem extends StatelessWidget {
       leading:
           new CircleAvatar(child: new Text(expense.description.toString()[0])),
       title: new Text(expense.description),
-      trailing: new Text(printCurrency(expense.amount)),
+      trailing: new Text(_currency.format(expense.amount)),
     );
   }
 }
@@ -80,5 +78,5 @@ class Expense {
   Expense({this.description, this.amount});
 
   final String description;
-  final int amount;
+  final num amount;
 }
