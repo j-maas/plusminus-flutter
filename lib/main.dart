@@ -35,21 +35,59 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
     new Expense(description: 'Fourth', amount: 120.129),
   ];
 
+  final TextEditingController _amountController = new TextEditingController();
+  final TextEditingController _categoryController = new TextEditingController();
+
+  void insert() {
+    var amount = int.parse(_amountController.text) / 100;
+    var category = _categoryController.text;
+    var expense = new Expense(description: category, amount: amount);
+    setState(() {
+      _expenses.add(expense);
+    });
+
+    _amountController.clear();
+    _categoryController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(widget.title),
       ),
-      body: new Center(
-        child: new ListView(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          children: _expenses.map((Expense expense) {
-            return new ExpenseListItem(
-              expense: expense,
-            );
-          }).toList(),
-        ),
+      body: new Column(
+        children: <Widget>[
+          new Expanded(
+            child: new ListView(
+              shrinkWrap: true,
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              children: _expenses.map((Expense expense) {
+                return new ExpenseListItem(
+                  expense: expense,
+                );
+              }).toList(),
+            ),
+          ),
+          new Column(
+            children: <Widget>[
+              new TextField(
+                controller: _amountController,
+                keyboardType: TextInputType.number,
+                decoration: new InputDecoration(hintText: 'Amount'),
+              ),
+              new TextField(
+                controller: _categoryController,
+                keyboardType: TextInputType.text,
+                decoration: new InputDecoration(hintText: 'Category'),
+              ),
+              new FlatButton(
+                child: new Icon(Icons.add),
+                onPressed: insert,
+              )
+            ],
+          )
+        ],
       ),
     );
   }
