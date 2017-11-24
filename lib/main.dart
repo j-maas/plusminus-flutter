@@ -27,13 +27,12 @@ class ExpenseOverview extends StatefulWidget {
 }
 
 class _ExpenseOverviewState extends State<ExpenseOverview> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  List<Expense> _expenses = [
+    new Expense(description: 'First', amount: 10),
+    new Expense(description: 'Second', amount: 20),
+    new Expense(description: 'Third', amount: 30),
+    new Expense(description: 'Fourth', amount: 120),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -42,24 +41,44 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
         title: new Text(widget.title),
       ),
       body: new Center(
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new Text(
-              'You have pushed the button this many times:',
-            ),
-            new Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
+        child: new ListView(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          children: _expenses.map((Expense expense) {
+            return new ExpenseListItem(
+              expense: expense,
+            );
+          }).toList(),
         ),
-      ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: new Icon(Icons.add),
       ),
     );
   }
+}
+
+class ExpenseListItem extends StatelessWidget {
+  ExpenseListItem({this.expense});
+
+  final Expense expense;
+
+  String printCurrency(int value) {
+    var whole = (value / 100).round();
+    var cents = value % 100;
+    return '$whole,$cents €';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new ListTile(
+      leading:
+          new CircleAvatar(child: new Text(expense.description.toString()[0])),
+      title: new Text(expense.description),
+      trailing: new Text(printCurrency(expense.amount)),
+    );
+  }
+}
+
+class Expense {
+  Expense({this.description, this.amount});
+
+  final String description;
+  final int amount;
 }
