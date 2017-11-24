@@ -8,25 +8,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Flutter Demo',
+      title: 'PlusMinus',
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new MyHomePage(title: 'Flutter Demo Home Page'),
+      home: new ExpenseOverview(title: 'PlusMinus'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class ExpenseOverview extends StatefulWidget {
+  ExpenseOverview({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _ExpenseOverviewState createState() => new _ExpenseOverviewState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _ExpenseOverviewState extends State<ExpenseOverview> {
   int _counter = 0;
 
   void _incrementCounter() {
