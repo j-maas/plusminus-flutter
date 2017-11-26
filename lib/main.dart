@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:plus_minus/expense_manager.dart';
+import "package:flutter/material.dart";
+import "package:intl/intl.dart";
+import "package:plus_minus/expense_manager.dart";
 
 void main() {
   Intl.defaultLocale = "de_DE";
@@ -11,11 +11,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'PlusMinus',
+      title: "PlusMinus",
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new ExpenseOverview(title: 'PlusMinus'),
+      home: new ExpenseOverview(title: "PlusMinus"),
     );
   }
 }
@@ -79,7 +79,7 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
 class ExpenseListItem extends StatelessWidget {
   final Expense expense;
 
-  final NumberFormat _currency = new NumberFormat.currency(symbol: '€');
+  final NumberFormat _currency = new NumberFormat.currency(symbol: "€");
   final DateFormat _date = new DateFormat("d.M.y", "en_US");
 
   ExpenseListItem({this.expense});
@@ -149,12 +149,12 @@ class ExpenseInput extends StatelessWidget {
             new TextField(
               controller: _amountController,
               keyboardType: TextInputType.number,
-              decoration: new InputDecoration(hintText: 'Amount'),
+              decoration: new InputDecoration(hintText: "Amount"),
             ),
             new TextField(
               controller: _categoryController,
               keyboardType: TextInputType.text,
-              decoration: new InputDecoration(hintText: 'Category'),
+              decoration: new InputDecoration(hintText: "Category"),
             ),
             new FlatButton(
               child: new Icon(Icons.add),
