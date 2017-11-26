@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:plus_minus/expense_manager.dart';
 
 void main() {
+  Intl.defaultLocale = "de_DE";
   runApp(new MyApp());
 }
 
@@ -30,6 +31,14 @@ class ExpenseOverview extends StatefulWidget {
 
 class _ExpenseOverviewState extends State<ExpenseOverview> {
   ExpenseManager _expenseManager = new ExpenseManager();
+
+  _ExpenseOverviewState() {
+    _expenseManager
+      ..add(new Expense.now(1.11, "First"))
+      ..add(new Expense.now(2.22, "Second"))
+      ..add(new Expense.now(3.33, "Third"))
+      ..add(new Expense.now(4.44, "Fourth"));
+  }
 
   void insertExpense(Expense expense) {
     setState(() {
@@ -68,23 +77,39 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
 }
 
 class ExpenseListItem extends StatelessWidget {
-  ExpenseListItem({this.expense});
-
   final Expense expense;
 
-  final NumberFormat _currency =
-      new NumberFormat.currency(locale: "de_DE", symbol: '€');
+  final NumberFormat _currency = new NumberFormat.currency(symbol: '€');
+  final DateFormat _date = new DateFormat("d.M.y", "en_US");
+
+  ExpenseListItem({this.expense});
 
   @override
   Widget build(BuildContext context) {
     return new ListTile(
       leading: new CircleAvatar(
         child: new Text(
-          expense.description.length > 0 ? expense.description[0] : '',
+            expense.description.length > 0 ? expense.description[0] : ""),
+        backgroundColor: Theme.of(context).accentColor,
+      ),
+      title: new Text(
+        expense.description,
+        style: Theme.of(context).textTheme.body2,
+      ),
+      subtitle: new Text(
+        _date.format(expense.date),
+        style: Theme.of(context).textTheme.body1,
+      ),
+      trailing: new Text(
+        _currency.format(expense.amount),
+        overflow: TextOverflow.fade,
+        softWrap: false,
+        style: new TextStyle(
+          fontSize: 22.0,
+          fontWeight: FontWeight.w600,
+          color: Theme.of(context).accentColor,
         ),
       ),
-      title: new Text(expense.description),
-      trailing: new Text(_currency.format(expense.amount)),
     );
   }
 }
@@ -100,6 +125,7 @@ class ExpenseInput extends StatelessWidget {
   final TextEditingController _categoryController = new TextEditingController();
 
   void parseAndPassExpense() {
+    // TODO: Report more info for "getTextBeforeCursor on inactive InputConnection" bug at https://github.com/flutter/flutter/issues/11321
     var amount = int.parse(_amountController.text) / 100;
     var category = _categoryController.text;
 
