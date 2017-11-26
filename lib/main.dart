@@ -112,32 +112,31 @@ class ExpenseInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-      new Container(
-        decoration: new BoxDecoration(
-          color: Theme.of(context).cardColor,
+    return new Container(
+      decoration: new BoxDecoration(
+        color: Theme.of(context).cardColor,
+      ),
+      child: new Container(
+        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: new Column(
+          children: <Widget>[
+            new TextField(
+              controller: _amountController,
+              keyboardType: TextInputType.number,
+              decoration: new InputDecoration(hintText: 'Amount'),
+            ),
+            new TextField(
+              controller: _categoryController,
+              keyboardType: TextInputType.text,
+              decoration: new InputDecoration(hintText: 'Category'),
+            ),
+            new FlatButton(
+              child: new Icon(Icons.add),
+              onPressed: parseAndPassExpense,
+            )
+          ],
         ),
-        child: new Container(
-          margin: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: new Column(
-            children: <Widget>[
-              new TextField(
-                controller: _amountController,
-                keyboardType: TextInputType.number,
-                decoration: new InputDecoration(hintText: 'Amount'),
-              ),
-              new TextField(
-                controller: _categoryController,
-                keyboardType: TextInputType.text,
-                decoration: new InputDecoration(hintText: 'Category'),
-              ),
-              new FlatButton(
-                child: new Icon(Icons.add),
-                onPressed: parseAndPassExpense,
-              )
-            ],
-          ),
-        ),
-      );
+      ),
+    );
   }
 }
