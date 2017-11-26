@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:plus_minus/expense_manager.dart';
 
 void main() {
   runApp(new MyApp());
@@ -28,12 +29,7 @@ class ExpenseOverview extends StatefulWidget {
 }
 
 class _ExpenseOverviewState extends State<ExpenseOverview> {
-  List<Expense> _expenses = [
-    new Expense(description: 'First', amount: 10.1),
-    new Expense(description: 'Second', amount: 20.12),
-    new Expense(description: 'Third', amount: 30.123),
-    new Expense(description: 'Fourth', amount: 120.129),
-  ];
+  ExpenseManager _expenseManager = new ExpenseManager();
 
   final TextEditingController _amountController = new TextEditingController();
   final TextEditingController _categoryController = new TextEditingController();
@@ -41,9 +37,9 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
   void insert() {
     var amount = int.parse(_amountController.text) / 100;
     var category = _categoryController.text;
-    var expense = new Expense(description: category, amount: amount);
+    var expense = new Expense.now(amount, category);
     setState(() {
-      _expenses.add(expense);
+      _expenseManager.add(expense);
     });
 
     _amountController.clear();
@@ -63,7 +59,7 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
               shrinkWrap: true,
               reverse: true,
               padding: const EdgeInsets.symmetric(vertical: 8.0),
-              children: _expenses.map((Expense expense) {
+              children: _expenseManager.getAll().map((Expense expense) {
                 return new ExpenseListItem(
                   expense: expense,
                 );
@@ -77,23 +73,26 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
             decoration: new BoxDecoration(
               color: Theme.of(context).cardColor,
             ),
-            child: new Column(
-              children: <Widget>[
-                new TextField(
-                  controller: _amountController,
-                  keyboardType: TextInputType.number,
-                  decoration: new InputDecoration(hintText: 'Amount'),
-                ),
-                new TextField(
-                  controller: _categoryController,
-                  keyboardType: TextInputType.text,
-                  decoration: new InputDecoration(hintText: 'Category'),
-                ),
-                new FlatButton(
-                  child: new Icon(Icons.add),
-                  onPressed: insert,
-                )
-              ],
+            child: new Container(
+              margin: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: new Column(
+                children: <Widget>[
+                  new TextField(
+                    controller: _amountController,
+                    keyboardType: TextInputType.number,
+                    decoration: new InputDecoration(hintText: 'Amount'),
+                  ),
+                  new TextField(
+                    controller: _categoryController,
+                    keyboardType: TextInputType.text,
+                    decoration: new InputDecoration(hintText: 'Category'),
+                  ),
+                  new FlatButton(
+                    child: new Icon(Icons.add),
+                    onPressed: insert,
+                  )
+                ],
+              ),
             ),
           ),
         ],
@@ -119,11 +118,4 @@ class ExpenseListItem extends StatelessWidget {
       trailing: new Text(_currency.format(expense.amount)),
     );
   }
-}
-
-class Expense {
-  Expense({this.description, this.amount});
-
-  final String description;
-  final num amount;
 }
