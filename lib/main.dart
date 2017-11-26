@@ -30,7 +30,7 @@ class ExpenseOverview extends StatefulWidget {
 
 class _ExpenseOverviewState extends State<ExpenseOverview> {
   ExpenseManager _expenseManager = new ExpenseManager();
-  
+
   void insertExpense(Expense expense) {
     setState(() {
       _expenseManager.add(expense);
@@ -78,8 +78,11 @@ class ExpenseListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new ListTile(
-      leading:
-          new CircleAvatar(child: new Text(expense.description.toString()[0])),
+      leading: new CircleAvatar(
+        child: new Text(
+          expense.description.length > 0 ? expense.description[0] : '',
+        ),
+      ),
       title: new Text(expense.description),
       trailing: new Text(_currency.format(expense.amount)),
     );
