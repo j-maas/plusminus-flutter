@@ -30,20 +30,11 @@ class ExpenseOverview extends StatefulWidget {
 
 class _ExpenseOverviewState extends State<ExpenseOverview> {
   ExpenseManager _expenseManager = new ExpenseManager();
-
-  final TextEditingController _amountController = new TextEditingController();
-  final TextEditingController _categoryController = new TextEditingController();
-
-  void insert() {
-    var amount = int.parse(_amountController.text) / 100;
-    var category = _categoryController.text;
-    var expense = new Expense.now(amount, category);
+  
+  void insertExpense(Expense expense) {
     setState(() {
       _expenseManager.add(expense);
     });
-
-    _amountController.clear();
-    _categoryController.clear();
   }
 
   @override
@@ -69,32 +60,7 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
           new Divider(
             height: 1.0,
           ),
-          new Container(
-            decoration: new BoxDecoration(
-              color: Theme.of(context).cardColor,
-            ),
-            child: new Container(
-              margin: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: new Column(
-                children: <Widget>[
-                  new TextField(
-                    controller: _amountController,
-                    keyboardType: TextInputType.number,
-                    decoration: new InputDecoration(hintText: 'Amount'),
-                  ),
-                  new TextField(
-                    controller: _categoryController,
-                    keyboardType: TextInputType.text,
-                    decoration: new InputDecoration(hintText: 'Category'),
-                  ),
-                  new FlatButton(
-                    child: new Icon(Icons.add),
-                    onPressed: insert,
-                  )
-                ],
-              ),
-            ),
-          ),
+          new ExpenseInput(insertExpense),
         ],
       ),
     );
@@ -117,5 +83,58 @@ class ExpenseListItem extends StatelessWidget {
       title: new Text(expense.description),
       trailing: new Text(_currency.format(expense.amount)),
     );
+  }
+}
+
+typedef void InsertExpenseCallback(Expense expense);
+
+class ExpenseInput extends StatelessWidget {
+  ExpenseInput(this.insertExpenseCallback);
+
+  final InsertExpenseCallback insertExpenseCallback;
+
+  final TextEditingController _amountController = new TextEditingController();
+  final TextEditingController _categoryController = new TextEditingController();
+
+  void parseAndPassExpense() {
+    var amount = int.parse(_amountController.text) / 100;
+    var category = _categoryController.text;
+
+    var expense = new Expense.now(amount, category);
+    insertExpenseCallback(expense);
+
+    _amountController.clear();
+    _categoryController.clear();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return
+      new Container(
+        decoration: new BoxDecoration(
+          color: Theme.of(context).cardColor,
+        ),
+        child: new Container(
+          margin: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: new Column(
+            children: <Widget>[
+              new TextField(
+                controller: _amountController,
+                keyboardType: TextInputType.number,
+                decoration: new InputDecoration(hintText: 'Amount'),
+              ),
+              new TextField(
+                controller: _categoryController,
+                keyboardType: TextInputType.text,
+                decoration: new InputDecoration(hintText: 'Category'),
+              ),
+              new FlatButton(
+                child: new Icon(Icons.add),
+                onPressed: parseAndPassExpense,
+              )
+            ],
+          ),
+        ),
+      );
   }
 }
