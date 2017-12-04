@@ -34,7 +34,7 @@ class ExpenseInput extends StatelessWidget {
             ),
             new FlatButton(
               child: new Icon(Icons.add),
-              onPressed: parseAndPassExpense,
+              onPressed: parseAndPassExpense, // TODO: Generates warning when keyboard is opened: https://github.com/flutter/flutter/issues/11321
             )
           ],
         ),
@@ -43,7 +43,6 @@ class ExpenseInput extends StatelessWidget {
   }
 
   void parseAndPassExpense() {
-    // TODO: Report more info for "getTextBeforeCursor on inactive InputConnection" bug at https://github.com/flutter/flutter/issues/11321
     var amount = int.parse(_amountController.text) / 100;
     var category = _categoryController.text;
 
