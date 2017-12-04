@@ -24,7 +24,12 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
       ..add(new Expense.now(1.11, "First"))
       ..add(new Expense.now(2.22, "Second"))
       ..add(new Expense.now(3.33, "Third"))
-      ..add(new Expense.now(4.44, "Fourth"));
+      ..add(new Expense.now(4.44, "Fourth"))
+      ..add(new Expense.now(5.55, "Fifth"))
+      ..add(new Expense.now(6.66, "Sixth"))
+      ..add(new Expense.now(7.77, "Seventh"))
+      ..add(new Expense.now(8.88, "Eigth"))
+      ..add(new Expense.now(9.99, "Ninth"));
   }
 
   @override
