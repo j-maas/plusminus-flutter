@@ -9,15 +9,18 @@ class ExpenseList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> _expenseList = _allExpenses.map<Widget>((Expense expense) {
+      return new ExpenseListItem(
+        expense: expense,
+      );
+    }).toList()
+      ..insert(0, new Container(height: 60.0));
+
     return new ListView(
       shrinkWrap: true,
       reverse: true,
       padding: const EdgeInsets.symmetric(vertical: 8.0),
-      children: _allExpenses.map((Expense expense) {
-        return new ExpenseListItem(
-          expense: expense,
-        );
-      }).toList(),
+      children: _expenseList,
     );
   }
 }
