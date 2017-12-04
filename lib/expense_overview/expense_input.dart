@@ -32,10 +32,16 @@ class ExpenseInput extends StatelessWidget {
   }
 
   Expense parseExpense() {
-    var amount = int.parse(_amountController.text) / 100;
-    var category = _categoryController.text;
+    double amount = 0.0;
+    try {
+      amount = int.parse(_amountController.text) / 100;
+    } catch (FormatException) {
+      print("TextField for amount could not be parsed" +
+          " to a number: '${_amountController.text}'");
+    }
+    String category = _categoryController.text;
 
-    var expense = new Expense.now(amount, category);
+    Expense expense = new Expense.now(amount, category);
 
     _amountController.clear();
     _categoryController.clear();
