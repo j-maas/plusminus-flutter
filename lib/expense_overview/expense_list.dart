@@ -14,18 +14,21 @@ class ExpenseList extends StatelessWidget {
         expense: expense,
       );
     }).toList()
-      ..insert(0, new Container(height: 60.0));
+      ..insert(0, new Container(height: ExpenseListItem.height));
 
     return new ListView(
       shrinkWrap: true,
       reverse: true,
       padding: const EdgeInsets.symmetric(vertical: 8.0),
+      itemExtent: ExpenseListItem.height,
       children: _expenseList,
     );
   }
 }
 
 class ExpenseListItem extends StatelessWidget {
+  static final double height = 72.0;
+
   final Expense expense;
 
   final NumberFormat _currency = new NumberFormat.currency(symbol: "€");
