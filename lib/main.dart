@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
-import 'package:plus_minus/expense_overview/expense_input/expense_overview.dart';
+import 'package:plus_minus/expense_overview/expense_overview.dart';
 
 void main() {
   Intl.defaultLocale = "de_DE";
