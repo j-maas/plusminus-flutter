@@ -53,7 +53,7 @@ class ExpenseListItem extends StatelessWidget {
         style: new TextStyle(
           fontSize: 22.0,
           fontWeight: FontWeight.w600,
-          color: Theme.of(context).accentColor,
+          color: Theme.of(context).primaryColor,
         ),
       ),
     );

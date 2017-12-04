@@ -13,7 +13,8 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: "PlusMinus",
       theme: new ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
+        accentColor: Colors.amberAccent.shade400,
       ),
       home: new ExpenseOverview(title: "PlusMinus"),
     );
