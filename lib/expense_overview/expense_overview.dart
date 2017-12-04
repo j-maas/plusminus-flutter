@@ -13,6 +13,10 @@ class ExpenseOverview extends StatefulWidget {
 }
 
 class _ExpenseOverviewState extends State<ExpenseOverview> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  PersistentBottomSheetController _bottomSheetController;
+  VoidCallback _fabCallback;
+
   ExpenseManager _expenseManager = new ExpenseManager();
 
   _ExpenseOverviewState() {
@@ -24,8 +28,15 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _fabCallback = _showExpenseInput;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      key: _scaffoldKey,
       appBar: new AppBar(
         title: new Text(widget.title),
       ),
@@ -34,18 +45,46 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
           new Expanded(
             child: new ExpenseList(_expenseManager.getAll()),
           ),
-          new Divider(
-            height: 1.0,
-          ),
-          new ExpenseInput(insertExpense),
         ],
+      ),
+      floatingActionButton: new FloatingActionButton(
+        child: _getFabIcon(),
+        onPressed: _fabCallback,
       ),
     );
   }
 
-  void insertExpense(Expense expense) {
+  void _insertExpense(Expense expense) {
     setState(() {
       _expenseManager.add(expense);
     });
+  }
+
+  void _showExpenseInput() {
+    setState(() {
+      _fabCallback = _closeExpenseInput;
+    });
+
+    ExpenseInput _expenseInput = new ExpenseInput();
+    _bottomSheetController = _scaffoldKey.currentState
+        .showBottomSheet((BuildContext context) => _expenseInput)
+          ..closed.whenComplete(() {
+            _insertExpense(_expenseInput.parseExpense());
+            setState(() {
+              _fabCallback = _showExpenseInput;
+            });
+          });
+  }
+
+  void _closeExpenseInput() {
+    _bottomSheetController.close();
+  }
+
+  Widget _getFabIcon() {
+    if (_fabCallback == _showExpenseInput) {
+      return new Icon(Icons.add);
+    } else {
+      return new Icon(Icons.done);
+    }
   }
 }
