@@ -26,7 +26,7 @@ class ExpenseListItem extends StatelessWidget {
   final Expense expense;
 
   final NumberFormat _currency = new NumberFormat.currency(symbol: "€");
-  final DateFormat _date = new DateFormat("d.M.y", "en_US");
+  final DateFormat _date = new DateFormat("dd.MM.y", "en_US");
 
   ExpenseListItem({this.expense});
 
