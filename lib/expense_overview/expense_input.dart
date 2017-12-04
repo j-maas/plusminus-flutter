@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:plus_minus/expense_manager.dart";
+import "package:plus_minus/expense_storage.dart";
 
 typedef void InsertExpenseCallback(Expense expense);
 

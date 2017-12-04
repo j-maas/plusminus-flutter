@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:plus_minus/expense_manager.dart";
+import "package:plus_minus/expense_storage.dart";
 import "package:plus_minus/expense_overview/expense_input.dart";
 import "package:plus_minus/expense_overview/expense_list.dart";
 
@@ -17,7 +17,7 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
   PersistentBottomSheetController _bottomSheetController;
   VoidCallback _fabCallback;
 
-  ExpenseManager _expenseManager = new ExpenseManager();
+  ExpenseStorage _expenseManager = new ExpenseStorage();
 
   _ExpenseOverviewState() {
     _expenseManager

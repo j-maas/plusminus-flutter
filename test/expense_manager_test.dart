@@ -1,10 +1,10 @@
-import "package:plus_minus/expense_manager.dart";
+import "package:plus_minus/expense_storage.dart";
 import "package:test/test.dart";
 
 void main() {
-  ExpenseManager expenseManager;
+  ExpenseStorage expenseManager;
   setUp(() {
-    expenseManager = new ExpenseManager();
+    expenseManager = new ExpenseStorage();
   });
   group("ExpenseManager", ()
   {

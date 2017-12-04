@@ -7,7 +7,7 @@ class Expense {
   Expense.now(this.amount, this.description) : date = new DateTime.now();
 }
 
-class ExpenseManager {
+class ExpenseStorage {
   final List<Expense> allExpenses = [];
 
   void add(Expense expense) {
