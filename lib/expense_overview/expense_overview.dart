@@ -4,9 +4,9 @@ import 'package:plus_minus/expense_overview/expense_input.dart';
 import 'package:plus_minus/expense_overview/expense_list.dart';
 
 class ExpenseOverview extends StatefulWidget {
-  ExpenseOverview({Key key, this.title}) : super(key: key);
-
   final String title;
+
+  ExpenseOverview({Key key, this.title}) : super(key: key);
 
   @override
   _ExpenseOverviewState createState() => new _ExpenseOverviewState();
@@ -21,12 +21,6 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
       ..add(new Expense.now(2.22, "Second"))
       ..add(new Expense.now(3.33, "Third"))
       ..add(new Expense.now(4.44, "Fourth"));
-  }
-
-  void insertExpense(Expense expense) {
-    setState(() {
-      _expenseManager.add(expense);
-    });
   }
 
   @override
@@ -47,5 +41,11 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
         ],
       ),
     );
+  }
+
+  void insertExpense(Expense expense) {
+    setState(() {
+      _expenseManager.add(expense);
+    });
   }
 }
