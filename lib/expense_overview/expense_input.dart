@@ -6,6 +6,7 @@ typedef void InsertExpenseCallback(Expense expense);
 class ExpenseInput extends StatelessWidget {
   final TextEditingController _amountController = new TextEditingController();
   final TextEditingController _categoryController = new TextEditingController();
+  final FocusNode _categoryFocus = new FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +17,16 @@ class ExpenseInput extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             new TextField(
+              autofocus: true,
               controller: _amountController,
               keyboardType: TextInputType.number,
               decoration: new InputDecoration(hintText: "Amount"),
+              onSubmitted: (_) {
+                FocusScope.of(context).requestFocus(_categoryFocus);
+              },
             ),
             new TextField(
+              focusNode: _categoryFocus,
               controller: _categoryController,
               keyboardType: TextInputType.text,
               decoration: new InputDecoration(hintText: "Category"),
