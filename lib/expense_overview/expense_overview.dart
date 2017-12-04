@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:plus_minus/expense_manager.dart";
-import 'package:plus_minus/expense_overview/expense_input.dart';
-import 'package:plus_minus/expense_overview/expense_list.dart';
+import "package:plus_minus/expense_overview/expense_input.dart";
+import "package:plus_minus/expense_overview/expense_list.dart";
 
 class ExpenseOverview extends StatefulWidget {
   final String title;

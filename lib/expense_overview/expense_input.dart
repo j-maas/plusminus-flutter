@@ -9,6 +9,7 @@ class ExpenseInput extends StatelessWidget {
   final TextEditingController _amountController = new TextEditingController();
 
   final TextEditingController _categoryController = new TextEditingController();
+
   ExpenseInput(this.insertExpenseCallback);
 
   @override
