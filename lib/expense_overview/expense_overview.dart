@@ -65,7 +65,9 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
       _fabCallback = _addExpenseAndCloseInput;
     });
 
-    _expenseInput = new ExpenseInput();
+    _expenseInput = new ExpenseInput(
+      submittedCallback: _addExpenseAndCloseInput,
+    );
     _bottomSheetController = _scaffoldKey.currentState
         .showBottomSheet((BuildContext context) => new Column(
               mainAxisSize: MainAxisSize.min,

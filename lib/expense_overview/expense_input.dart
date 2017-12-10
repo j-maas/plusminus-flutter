@@ -8,6 +8,10 @@ class ExpenseInput extends StatelessWidget {
   final TextEditingController _categoryController = new TextEditingController();
   final FocusNode _categoryFocus = new FocusNode();
 
+  final VoidCallback submittedCallback;
+
+  ExpenseInput({this.submittedCallback});
+
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -26,11 +30,13 @@ class ExpenseInput extends StatelessWidget {
               },
             ),
             new TextField(
-              focusNode: _categoryFocus,
-              controller: _categoryController,
-              keyboardType: TextInputType.text,
-              decoration: new InputDecoration(hintText: "Category"),
-            ),
+                focusNode: _categoryFocus,
+                controller: _categoryController,
+                keyboardType: TextInputType.text,
+                decoration: new InputDecoration(hintText: "Category"),
+                onSubmitted: (_) {
+                  submittedCallback();
+                }),
           ],
         ),
       ),
