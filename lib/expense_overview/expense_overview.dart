@@ -67,7 +67,15 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
 
     _expenseInput = new ExpenseInput();
     _bottomSheetController = _scaffoldKey.currentState
-        .showBottomSheet((BuildContext context) => _expenseInput)
+        .showBottomSheet((BuildContext context) => new Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                new Divider(
+                  height: 1.0,
+                ),
+                _expenseInput,
+              ],
+            ))
           ..closed.whenComplete(() {
             setState(() {
               _fabCallback = _showExpenseInput;
