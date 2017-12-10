@@ -15,6 +15,7 @@ class ExpenseOverview extends StatefulWidget {
 class _ExpenseOverviewState extends State<ExpenseOverview> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   PersistentBottomSheetController _bottomSheetController;
+  ExpenseInput _expenseInput;
   VoidCallback _fabCallback;
 
   ExpenseStorage _expenseManager = new ExpenseStorage();
@@ -59,29 +60,26 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
     );
   }
 
-  void _insertExpense(Expense expense) {
-    setState(() {
-      _expenseManager.add(expense);
-    });
-  }
-
   void _showExpenseInput() {
     setState(() {
-      _fabCallback = _closeExpenseInput;
+      _fabCallback = _addExpenseAndCloseInput;
     });
 
-    ExpenseInput _expenseInput = new ExpenseInput();
+    _expenseInput = new ExpenseInput();
     _bottomSheetController = _scaffoldKey.currentState
         .showBottomSheet((BuildContext context) => _expenseInput)
           ..closed.whenComplete(() {
-            _insertExpense(_expenseInput.parseExpense());
             setState(() {
               _fabCallback = _showExpenseInput;
             });
           });
   }
 
-  void _closeExpenseInput() {
+  void _addExpenseAndCloseInput() {
+    var newExpense = _expenseInput.parseExpense();
+    setState(() {
+      _expenseManager.add(newExpense);
+    });
     _bottomSheetController.close();
   }
 
