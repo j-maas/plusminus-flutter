@@ -42,14 +42,5 @@ void main() {
       expect(() => expenseInput.parseExpense(), throwsStateError);
 
     });
-
-    testWidgets('accepts empty description', (WidgetTester tester) async {
-      await tester.pumpWidget(renderableWrapper);
-    }, skip: true);
-
-    testWidgets('calls submit callback on keyboard submit',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(renderableWrapper);
-    }, skip: true);
   });
 }
