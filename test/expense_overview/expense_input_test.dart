@@ -36,7 +36,12 @@ void main() {
 
     testWidgets('throws error on invalid date', (WidgetTester tester) async {
       await tester.pumpWidget(renderableWrapper);
-    }, skip: true);
+
+      await tester.enterText(amountTextField, "9.9.");
+
+      expect(() => expenseInput.parseExpense(), throwsStateError);
+
+    });
 
     testWidgets('accepts empty description', (WidgetTester tester) async {
       await tester.pumpWidget(renderableWrapper);

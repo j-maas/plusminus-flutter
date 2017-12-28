@@ -48,8 +48,9 @@ class ExpenseInput extends StatelessWidget {
     try {
       amount = int.parse(_amountController.text) / 100;
     } catch (FormatException) {
-      print("TextField for amount could not be parsed" +
-          " to a number: '${_amountController.text}'");
+      throw new StateError("TextField for amount"
+          " containing '${_amountController.text}'"
+          " could not be parsed to a number.");
     }
     String category = _categoryController.text;
 

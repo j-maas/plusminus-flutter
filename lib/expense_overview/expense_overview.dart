@@ -86,11 +86,16 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
   }
 
   void _addExpenseAndCloseInput() {
-    var newExpense = _expenseInput.parseExpense();
-    setState(() {
-      _expenseManager.add(newExpense);
-    });
-    _bottomSheetController.close();
+    try {
+      var newExpense = _expenseInput.parseExpense();
+      setState(() {
+        _expenseManager.add(newExpense);
+      });
+      _bottomSheetController.close();
+    } on StateError catch (e) {
+      // TODO: Signify error to user.
+      print("Error when adding expense: ${e}");
+    }
   }
 
   Widget _getFabIcon() {
