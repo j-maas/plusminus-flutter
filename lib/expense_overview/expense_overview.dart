@@ -54,6 +54,7 @@ class _ExpenseOverviewState extends State<ExpenseOverview> {
         ],
       ),
       floatingActionButton: new FloatingActionButton(
+        key: new Key("addExpenseButton"),
         child: _getFabIcon(),
         onPressed: _fabCallback,
       ),
