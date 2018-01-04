@@ -21,6 +21,7 @@ class ExpenseInput extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             new TextField(
+              key: new Key("amountInput"),
               autofocus: true,
               controller: _amountController,
               keyboardType: TextInputType.number,
@@ -30,6 +31,7 @@ class ExpenseInput extends StatelessWidget {
               },
             ),
             new TextField(
+                key: new Key("categoryInput"),
                 focusNode: _categoryFocus,
                 controller: _categoryController,
                 keyboardType: TextInputType.text,

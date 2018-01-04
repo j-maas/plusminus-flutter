@@ -17,6 +17,7 @@ class ExpenseList extends StatelessWidget {
       ..insert(0, new Container(height: ExpenseListItem.height));
 
     return new ListView(
+      key: new Key("expenseList"),
       shrinkWrap: true,
       reverse: true,
       padding: const EdgeInsets.symmetric(vertical: 8.0),
